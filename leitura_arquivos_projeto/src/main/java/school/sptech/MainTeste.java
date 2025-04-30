@@ -4,7 +4,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 import java.util.List;
 
-public class Main2 {
+public class MainTeste {
     public static void main(String[] args) {
 
         String bucket = ConfigLoader.get("S3_BUCKET");
@@ -15,6 +15,7 @@ public class Main2 {
 
         if(!arquivos.isEmpty()) {
             String arquivoMaisRecente = arquivos.getFirst();
+            System.out.println(arquivoMaisRecente);
         }
     }
 }
