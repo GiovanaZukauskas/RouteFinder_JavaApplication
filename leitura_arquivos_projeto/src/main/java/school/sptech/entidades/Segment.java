@@ -1,31 +1,31 @@
-package school.sptech;
+package school.sptech.entidades;
 
 public class Segment {
 
-    private Long idSegment;
+    private Integer idSegment;
     private String nome;
     private String directionName;
-    private Long fkDirection;
+    private Integer fkDirection;
 
     public Segment() {
     }
 
-    public Segment(String nome, Long fkDirection) {
+    public Segment(String nome, Integer fkDirection) {
         this.nome = nome;
         this.fkDirection = fkDirection;
     }
 
-    public Segment(Long idSegment, String nome, Long fkDirection) {
+    public Segment(Integer idSegment, String nome, Integer fkDirection) {
         this.idSegment = idSegment;
         this.nome = nome;
         this.fkDirection = fkDirection;
     }
 
-    public Long getIdSegment() {
+    public Integer getIdSegment() {
         return idSegment;
     }
 
-    public void setIdSegment(Long idSegment) {
+    public void setIdSegment(Integer idSegment) {
         this.idSegment = idSegment;
     }
 
@@ -37,11 +37,11 @@ public class Segment {
         this.nome = nome;
     }
 
-    public Long getFkDirection() {
+    public Integer getFkDirection() {
         return fkDirection;
     }
 
-    public void setFkDirection(Long fkDirection) {
+    public void setFkDirection(Integer fkDirection) {
         this.fkDirection = fkDirection;
     }
 

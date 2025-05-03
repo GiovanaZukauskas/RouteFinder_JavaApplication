@@ -1,33 +1,33 @@
-package school.sptech;
+package school.sptech.entidades;
 
 public class Passage {
 
-    private Long idPassage;
+    private Integer idPassage;
     private String name;
     private String region;
-    private Integer type;
+    private String type;
 
     public Passage() {
     }
 
-    public Passage(String name, String region, Integer type) {
+    public Passage(String name, String region, String type) {
         this.name = name;
         this.region = region;
         this.type = type;
     }
 
-    public Passage(Long idPassage, String name, String region, Integer type) {
+    public Passage(Integer idPassage, String name, String region, String type) {
         this.idPassage = idPassage;
         this.name = name;
         this.region = region;
         this.type = type;
     }
 
-    public Long getIdPassage() {
+    public Integer getIdPassage() {
         return idPassage;
     }
 
-    public void setIdPassage(Long idPassage) {
+    public void setIdPassage(Integer idPassage) {
         this.idPassage = idPassage;
     }
 
@@ -47,11 +47,11 @@ public class Passage {
         this.region = region;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

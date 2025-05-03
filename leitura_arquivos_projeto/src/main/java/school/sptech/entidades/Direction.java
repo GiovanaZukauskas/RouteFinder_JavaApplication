@@ -1,32 +1,32 @@
-package school.sptech;
+package school.sptech.entidades;
 
 public class Direction {
 
-    private Long idDirection;
+    private Integer idDirection;
     private String name;
     private String passageName;
-    private Long fkPassage;
+    private Integer fkPassage;
 
 
     public Direction() {
     }
 
-    public Direction(String name, Long fkPassage) {
+    public Direction(String name, Integer fkPassage) {
         this.name = name;
         this.fkPassage = fkPassage;
     }
 
-    public Direction(Long idDirection, String name, Long fkPassage) {
+    public Direction(Integer idDirection, String name, Integer fkPassage) {
         this.idDirection = idDirection;
         this.name = name;
         this.fkPassage = fkPassage;
     }
 
-    public Long getIdDirection() {
+    public Integer getIdDirection() {
         return idDirection;
     }
 
-    public void setIdDirection(Long idDirection) {
+    public void setIdDirection(Integer idDirection) {
         this.idDirection = idDirection;
     }
 
@@ -38,11 +38,11 @@ public class Direction {
         this.name = name;
     }
 
-    public Long getFkPassage() {
+    public Integer getFkPassage() {
         return fkPassage;
     }
 
-    public void setFkPassage(Long fkPassage) {
+    public void setFkPassage(Integer fkPassage) {
         this.fkPassage = fkPassage;
     }
 

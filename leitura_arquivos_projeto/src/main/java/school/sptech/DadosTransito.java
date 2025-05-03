@@ -1,7 +1,5 @@
 package school.sptech;
 
-import java.time.LocalDateTime;
-
 public class DadosTransito {
 
     private String type;

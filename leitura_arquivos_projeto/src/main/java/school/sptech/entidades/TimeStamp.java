@@ -1,36 +1,36 @@
-package school.sptech;
+package school.sptech.entidades;
 
 import java.time.LocalDateTime;
 
 public class TimeStamp {
 
-    private Long idTimeStamp;
+    private Integer idTimeStamp;
     private LocalDateTime dataHorario;
     private String segmentName;
-    private Long jamSize;
-    private Long fkSegment;
+    private Integer jamSize;
+    private Integer fkSegment;
 
     public TimeStamp() {
     }
 
-    public TimeStamp(LocalDateTime dataHorario, Long jamSize, Long fkPassage) {
+    public TimeStamp(LocalDateTime dataHorario, Integer jamSize, Integer fkPassage) {
         this.dataHorario = dataHorario;
         this.jamSize = jamSize;
         this.fkSegment = fkPassage;
     }
 
-    public TimeStamp(Long idTimeStamp, LocalDateTime dataHorario, Long jamSize, Long fkPassage) {
+    public TimeStamp(Integer idTimeStamp, LocalDateTime dataHorario, Integer jamSize, Integer fkPassage) {
         this.idTimeStamp = idTimeStamp;
         this.dataHorario = dataHorario;
         this.jamSize = jamSize;
         this.fkSegment = fkPassage;
     }
 
-    public Long getIdTimeStamp() {
+    public Integer getIdTimeStamp() {
         return idTimeStamp;
     }
 
-    public void setIdTimeStamp(Long idTimeStamp) {
+    public void setIdTimeStamp(Integer idTimeStamp) {
         this.idTimeStamp = idTimeStamp;
     }
 
@@ -42,19 +42,19 @@ public class TimeStamp {
         this.dataHorario = dataHorario;
     }
 
-    public Long getJamSize() {
+    public Integer getJamSize() {
         return jamSize;
     }
 
-    public void setJamSize(Long jamSize) {
+    public void setJamSize(Integer jamSize) {
         this.jamSize = jamSize;
     }
 
-    public Long getFkSegment() {
+    public Integer getFkSegment() {
         return fkSegment;
     }
 
-    public void setFkSegment(Long fkSegment) {
+    public void setFkSegment(Integer fkSegment) {
         this.fkSegment = fkSegment;
     }
 
