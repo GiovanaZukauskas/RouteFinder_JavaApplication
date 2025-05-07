@@ -114,19 +114,19 @@ public class LeitorDados {
 
                         if (!passagensCadastradas.containsKey(nomePassage)) {
                             jdbcTemplate.update("INSERT INTO passage (name_passage, region, type) VALUES (?, ?, ?)", passage.getName(), passage.getRegion(), passage.getType());
-                            Integer idPassage = jdbcTemplate.queryForObject("SELECT id_passage FROM passage WHERE name_passage = ?", Integer.class, passage.getName());
-                            passagensCadastradas.put(nomePassage, idPassage);
+                            List<Integer> idPassage = jdbcTemplate.queryForList("SELECT id_passage FROM passage WHERE name_passage = ?", Integer.class, passage.getName());
+                            passagensCadastradas.put(nomePassage, idPassage.getFirst());
                         }
                         if (!direcaoCadastrada.containsKey(nomeDirection)) {
                             jdbcTemplate.update("INSERT INTO direction (name_direction, fk_passage) VALUES (?, ?)", direction.getName(), passagensCadastradas.get(nomePassage));
-                            Integer idDirection = jdbcTemplate.queryForObject("SELECT id_direction FROM direction WHERE name_direction = ?", Integer.class, direction.getName());
-                            direcaoCadastrada.put(nomeDirection, idDirection);
+                            List<Integer> idDirection = jdbcTemplate.queryForList("SELECT id_direction FROM direction WHERE name_direction = ?", Integer.class, direction.getName());
+                            direcaoCadastrada.put(nomeDirection, idDirection.getFirst());
                         }
                         if (!segmentoCadastrado.containsKey(nomeSegment)) {
                             jdbcTemplate.update("INSERT INTO segment (name_segment, fk_direction) VALUES (?, ?)", segment.getNome(), direcaoCadastrada.get(nomeDirection));
-                            Integer idSegment = jdbcTemplate.queryForObject("SELECT id_segment FROM segment WHERE name_segment = ?", Integer.class, segment.getNome());
-                            segmentoCadastrado.put(nomeSegment, idSegment);
-                            timeStamp.setFkSegment(idSegment);
+                            List<Integer> idSegment = jdbcTemplate.queryForList("SELECT id_segment FROM segment WHERE name_segment = ?", Integer.class, segment.getNome());
+                            segmentoCadastrado.put(nomeSegment, idSegment.getFirst());
+                            timeStamp.setFkSegment(idSegment.getFirst());
                         } else {
                             timeStamp.setFkSegment(segmentoCadastrado.get(nomeSegment));
                         }
