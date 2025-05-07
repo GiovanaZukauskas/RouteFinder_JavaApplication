@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
         public ConexaoBanco() {
             BasicDataSource basicDataSource = new BasicDataSource();
-            basicDataSource.setUrl("jdbc:mysql://3.87.195.225:3306/trafego");
+            basicDataSource.setUrl("jdbc:mysql://3.84.40.38:3306/trafego");
             basicDataSource.setUsername("routefinder");
             basicDataSource.setPassword("urubu100");
 
