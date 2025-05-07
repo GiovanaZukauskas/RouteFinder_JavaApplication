@@ -62,7 +62,9 @@ public class LeitorDados {
             final int BATCH_SIZE = 200;
             List<TimeStamp> batchTimeStamp = new ArrayList<>(BATCH_SIZE);
 
-            // Carrega todas as áreas existentes no banco e as coloca em um Map
+            // Esses mapas guardam quais passagens, direções e segmentos já existem
+            // no banco para não ficar inserindo duplicado.
+
             Map<String, Integer> passagensCadastradas = new HashMap<>();
             jdbcTemplate.query("SELECT id_passage, name_passage FROM passage", rs -> {
                 passagensCadastradas.put(rs.getString("name_passage").trim().toLowerCase(), rs.getInt("id_passage"));
@@ -150,14 +152,7 @@ public class LeitorDados {
                         case 2 -> passage.setType(tratarTexto(formattedValue));
                         case 3 -> passage.setRegion(tratarTexto(formattedValue));
                         case 4 -> {
-                            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                                    .appendPattern("d/M/")
-                                    .appendValueReduced(ChronoField.YEAR, 2, 4, 2000)
-                                    .appendPattern(" ")
-                                    .appendValue(ChronoField.HOUR_OF_DAY, 1, 2, SignStyle.NORMAL)
-                                    .appendLiteral(':')
-                                    .appendValue(ChronoField.MINUTE_OF_HOUR, 2)
-                                    .toFormatter();
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy H:mm");
                             LocalDateTime dateTime = LocalDateTime.parse(formattedValue, formatter);
                             timeStamp.setDataHorario(dateTime);
                         }
