@@ -1,30 +1,40 @@
 package school.sptech;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import school.sptech.entidades.Direction;
+import school.sptech.entidades.Passage;
+import school.sptech.entidades.Segment;
+import school.sptech.entidades.TimeStamp;
 
-    public class ConexaoBanco {
+import java.util.List;
 
-        private final JdbcTemplate jdbcTemplate;
-        private final BasicDataSource basicDataSource;
+public class ConexaoBanco {
 
-        public ConexaoBanco() {
-            BasicDataSource basicDataSource = new BasicDataSource();
-            basicDataSource.setUrl("jdbc:mysql://3.84.40.38:3306/trafego");
-            basicDataSource.setUsername("routefinder");
-            basicDataSource.setPassword("urubu100");
+    private final JdbcTemplate jdbcTemplate;
+    private final BasicDataSource basicDataSource;
 
-            this.basicDataSource = basicDataSource;
-            this.jdbcTemplate = new JdbcTemplate(basicDataSource);
-        }
+    public ConexaoBanco() {
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setUrl(ConfigLoader.get("IP"));
+        basicDataSource.setUsername(ConfigLoader.get("USER"));
+        basicDataSource.setPassword(ConfigLoader.get("SENHA"));
 
-        public BasicDataSource getBasicDataSource() {
-            return basicDataSource;
-        }
-
-        public JdbcTemplate getJdbcTemplate() {
-
-            return jdbcTemplate;
-        }
+        this.basicDataSource = basicDataSource;
+        this.jdbcTemplate = new JdbcTemplate(basicDataSource);
     }
+
+
+    public BasicDataSource getBasicDataSource() {
+        return basicDataSource;
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+
+        return jdbcTemplate;
+    }
+}
+
+
 
