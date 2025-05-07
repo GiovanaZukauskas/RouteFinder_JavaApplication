@@ -211,7 +211,7 @@ public class LeitorDados {
     private void enviarBatch(List<TimeStamp> horarioPicoList) {
         System.out.println("Inserindo " + horarioPicoList.size() + " registros no banco.");
 
-        String sqlHorarioPico = "INSERT INTO timestamp (data_horario, jam_size, fk_segment) VALUES (?, ?, ?)";
+        String sqlHorarioPico = "INSERT INTO timestamp (date_time, jam_size, fk_segment) VALUES (?, ?, ?)";
 
         try {
             jdbcTemplate.batchUpdate(sqlHorarioPico, horarioPicoList, horarioPicoList.size(), (ps, horario) -> {
