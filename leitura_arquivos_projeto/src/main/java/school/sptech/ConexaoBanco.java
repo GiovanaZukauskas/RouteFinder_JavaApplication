@@ -18,7 +18,7 @@ public class ConexaoBanco {
     public ConexaoBanco() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(ConfigLoader.get("IP"));
-        basicDataSource.setUsername(ConfigLoader.get("USER"));
+        basicDataSource.setUsername("root");
         basicDataSource.setPassword(ConfigLoader.get("SENHA"));
 
         this.basicDataSource = basicDataSource;
