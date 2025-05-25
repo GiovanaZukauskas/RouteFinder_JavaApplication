@@ -12,13 +12,13 @@ import java.util.List;
 
 public class ConexaoBanco {
 
-    private final JdbcTemplate jdbcTemplate;
+    private static JdbcTemplate jdbcTemplate;
     private final BasicDataSource basicDataSource;
 
     public ConexaoBanco() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(ConfigLoader.get("IP"));
-        basicDataSource.setUsername("root");
+        basicDataSource.setUsername(ConfigLoader.get("USER"));
         basicDataSource.setPassword(ConfigLoader.get("SENHA"));
 
         this.basicDataSource = basicDataSource;
@@ -30,8 +30,7 @@ public class ConexaoBanco {
         return basicDataSource;
     }
 
-    public JdbcTemplate getJdbcTemplate() {
-
+    public static JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
 }

@@ -34,15 +34,20 @@ import java.util.Map;
 public class LeitorDados {
     private final JdbcTemplate jdbcTemplate;
     private final S3Client s3Client;
+    private final Error erro;
+    private final Info info;
+
 
     public LeitorDados(JdbcTemplate jdbcTemplate, S3Client s3Client) {
         this.jdbcTemplate = jdbcTemplate;
         this.s3Client = s3Client;
+        this.erro = new Error();
+        this.info = new Info();
     }
 
     public void processar(String bucket, String key) {
         System.out.println("Iniciando processamento do arquivo: " + key);
-        Log.inserirLog("Info", "Processamento iniciado com sucesso: " + key);
+        info.inserirLog( "Processamento iniciado com sucesso: " + key);
 
         try (InputStream inputStream = s3Client.getObject(GetObjectRequest.builder()
                 .bucket(bucket)
@@ -50,7 +55,7 @@ public class LeitorDados {
                 .build())) {
 
             if (key.endsWith(".xls")) {
-                Log.inserirLog("Error", "Arquivos .xls não são suportados no modo SAX.");
+                erro.inserirLog("Arquivos .xls não são suportados no modo SAX.");
                 throw new UnsupportedOperationException("Arquivos .xls não são suportados no modo SAX.");
             }
             IOUtils.setByteArrayMaxOverride(1_000_000_000);
@@ -68,19 +73,19 @@ public class LeitorDados {
             Map<String, Integer> passagensCadastradas = new HashMap<>();
             jdbcTemplate.query("SELECT id_passage, name_passage FROM passage", rs -> {
                 passagensCadastradas.put(rs.getString("name_passage").trim().toLowerCase(), rs.getInt("id_passage"));
-                Log.inserirLog("Info", "FKs da tabela passage carregadas com sucesso");
+                info.inserirLog( "FKs da tabela passage carregadas com sucesso");
             });
 
             Map<String, Integer> direcaoCadastrada = new HashMap<>();
             jdbcTemplate.query("SELECT id_direction, name_direction FROM direction", rs -> {
                 direcaoCadastrada.put(rs.getString("name_direction").trim().toLowerCase(), rs.getInt("id_direction"));
-                Log.inserirLog("Info", "FKs da tabela direction carregadas com sucesso");
+                info.inserirLog( "FKs da tabela direction carregadas com sucesso");
             });
 
             Map<String, Integer> segmentoCadastrado = new HashMap<>();
             jdbcTemplate.query("SELECT id_segment, name_segment FROM segment", rs -> {
                 segmentoCadastrado.put(rs.getString("name_segment").trim().toLowerCase(), rs.getInt("id_segment"));
-                Log.inserirLog("Info", "FKs da tabela segment carregadas com sucesso");
+                info.inserirLog( "FKs da tabela segment carregadas com sucesso");
             });
 
 
@@ -179,10 +184,10 @@ public class LeitorDados {
             }
 
             System.out.println("✔ Leitura da planilha '" + key + "' finalizada.");
-            Log.inserirLog("Info", "✔ Leitura da planilha '" + key + "' finalizada.");
+            info.inserirLog( "✔ Leitura da planilha '" + key + "' finalizada.");
         } catch (Exception e) {
             System.err.println("Erro ao processar a planilha '" + key + "': " + e.getMessage());
-            Log.inserirLog("Error", "Erro ao processar a planilha '" + key + "': " + e.getMessage());
+            erro.inserirLog( "Erro ao processar a planilha '" + key + "': " + e.getMessage());
         }
     }
 
@@ -214,10 +219,10 @@ public class LeitorDados {
                 ps.setInt(2, horario.getJamSize());
                 ps.setInt(3, horario.getFkSegment());
             });
-            Log.inserirLog("Info", " Foram inseridos " + horarioPicoList.size() + " registros no banco.");
+            info.inserirLog( " Foram inseridos " + horarioPicoList.size() + " registros no banco.");
         } catch (Exception e) {
             System.err.println("Erro ao inserir batch: " + e.getMessage());
-            Log.inserirLog("Error", "Erro ao inserir batch: " + e.getMessage());
+            erro.inserirLog( "Erro ao inserir batch: " + e.getMessage());
         }
     }
 }
