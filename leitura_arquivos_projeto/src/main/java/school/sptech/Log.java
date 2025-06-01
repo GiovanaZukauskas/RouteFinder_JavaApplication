@@ -29,8 +29,8 @@ public class Log {
         }
         try {
             jdbcTemplate.update(
-                    "INSERT INTO log (category, description)" +
-                            "VALUES (?, ?)", category, description
+                    "INSERT INTO log (description,fk_alert,fk_category)" +
+                            "VALUES (?, 1, ?)", description, 1
             );
         } catch (Exception e) {
             System.out.println(String.format("Erro ao inserir o Log %s", new Log(category, description)));
