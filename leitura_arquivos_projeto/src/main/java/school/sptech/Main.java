@@ -21,8 +21,11 @@ public class Main {
             info.inserirLog( "O arquivo planilhas/base-dados-route-finder.xlsx foi lido com sucesso");
         } catch (Exception e) {
             System.out.println(String.format("Não foi possível processar os dados, erro: %s", e.getMessage()));
+            SlackNotifier.enviarMensagem("Não foi possivel processar os dados, erro: %s "+ e.getMessage());
             error.inserirLog(String.format("Não foi possível processar os dados, erro: %s", e.getMessage()));
         }
+
+
     }
 }
 

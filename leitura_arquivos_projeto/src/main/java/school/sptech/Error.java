@@ -18,6 +18,7 @@ public class Error extends Log{
             );
         } catch (Exception e) {
             System.out.println(String.format("Erro ao inserir o Log %s", e.getMessage()));
+            SlackNotifier.enviarMensagem("Erro ao inserir o Log"+e.getMessage());
             inserirLog(String.format("Erro ao inserir o Log %s", e.getMessage()));
         }
 

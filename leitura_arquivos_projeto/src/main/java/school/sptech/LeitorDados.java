@@ -47,6 +47,7 @@ public class LeitorDados {
 
     public void processar(String bucket, String key) {
         System.out.println("Iniciando processamento do arquivo: " + key);
+
         info.inserirLog( "Processamento iniciado com sucesso: " + key);
 
         try (InputStream inputStream = s3Client.getObject(GetObjectRequest.builder()
@@ -56,6 +57,7 @@ public class LeitorDados {
 
             if (key.endsWith(".xls")) {
                 erro.inserirLog("Arquivos .xls não são suportados no modo SAX.");
+                SlackNotifier.enviarMensagem("Arquivos .xls não são suportados no modo SAX");
                 throw new UnsupportedOperationException("Arquivos .xls não são suportados no modo SAX.");
             }
             IOUtils.setByteArrayMaxOverride(1_000_000_000);
