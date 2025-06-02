@@ -19,6 +19,9 @@ public class ConexaoS3 {
 
     private static final S3Client s3Client = criarS3Client();
 
+    static Info info = new Info();
+    static Error error = new Error();
+
     public static S3Client criarS3Client() {
         // Coletando o valor referente as variáveis de ambiente
         String accessKey = ConfigLoader.get("AWS_ACCESS_KEY_ID");
@@ -39,7 +42,7 @@ public class ConexaoS3 {
         System.out.println("Bucket Name: " + bucketName);
         List<String> arquivos = new ArrayList<>();
         if (bucketName == null || bucketName.isEmpty()) {
-            Log.inserirLog("Error", "O nome do bucket está nulo ou vazio.");
+            error.inserirLog("O nome do bucket está nulo ou vazio.");
             throw new IllegalArgumentException("O nome do bucket não pode ser nulo ou vazio.");
         }
 
@@ -60,14 +63,14 @@ public class ConexaoS3 {
             }
         } catch (Exception e) {
             System.err.println("Erro ao listar os arquivos: " + e.getMessage());
-            Log.inserirLog("Error", "Erro ao listar os arquivos" + e.getMessage());
+           error.inserirLog( "Erro ao listar os arquivos" + e.getMessage());
         }
         return arquivos;
     }
 
     public static InputStream getArquivo(String bucketName, String key) {
         if (bucketName == null || bucketName.isEmpty()) {
-            Log.inserirLog("Error", "O nome do bucket está nulo ou vazio.");
+            error.inserirLog( "O nome do bucket está nulo ou vazio.");
             throw new IllegalArgumentException("O nome do bucket não pode ser nulo ou vazio.");
         }
 
@@ -78,7 +81,7 @@ public class ConexaoS3 {
                     .build());
         } catch (Exception e) {
             System.err.println("Erro ao obter arquivo '" + key + "':" + e.getMessage());
-            Log.inserirLog("Error", "Erro ao obter arquivo '" + key + "':" + e.getMessage());
+            error.inserirLog( "Erro ao obter arquivo '" + key + "':" + e.getMessage());
             throw e;
         }
     }

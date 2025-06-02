@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ConexaoBanco {
 
-    private final JdbcTemplate jdbcTemplate;
+    private static JdbcTemplate jdbcTemplate;
     private final BasicDataSource basicDataSource;
 
     public ConexaoBanco() {
@@ -30,8 +30,7 @@ public class ConexaoBanco {
         return basicDataSource;
     }
 
-    public JdbcTemplate getJdbcTemplate() {
-
+    public static JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
 }
