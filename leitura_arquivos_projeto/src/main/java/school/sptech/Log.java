@@ -19,18 +19,17 @@ public abstract class Log {
                 '}';
     }
 
-    public static void inserirLog(String category, String description){
-        if(category == null || description == null){
-            return;
-        }
-        try {
-            jdbcTemplate.update(
-                    "INSERT INTO log (description,fk_alert,fk_category)" +
-                            "VALUES (?, 1, ?)", description, 1
-            );
-        } catch (Exception e) {
-            System.out.println(String.format("Erro ao inserir o Log %s", new Log(category, description)));
-        }
-  
     public abstract void inserirLog(String description);
+
+    public Categoria getCategory() {
+        return category;
+    }
+
+    public void setCategory(Categoria category) {
+        this.category = category;
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
 }
