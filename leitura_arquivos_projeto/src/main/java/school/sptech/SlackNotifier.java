@@ -6,7 +6,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class SlackNotifier {
-    private static final String WEBHOOK_URL = "https://hooks.slack.com/services/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";
+    private static final String WEBHOOK_URL = "COLOQUE O LINK DO PLANNER AQUI";
 
     public static void enviarMensagem(String mensagem) {
         try {
