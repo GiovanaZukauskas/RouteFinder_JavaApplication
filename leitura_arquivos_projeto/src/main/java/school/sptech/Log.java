@@ -19,7 +19,7 @@ public abstract class Log {
                 '}';
     }
 
-    public abstract void inserirLog(String description);
+    public abstract void inserirLog(String nome, String description) throws Exception;
 
     public Categoria getCategory() {
         return category;

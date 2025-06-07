@@ -18,11 +18,10 @@ public class Main {
         LeitorDados leitorDados = new LeitorDados(jdbcTemplate, s3Client);
         try {
             leitorDados.processar(bucket, "planilhas/base-dados-route-finder.xlsx");
-            info.inserirLog( "O arquivo planilhas/base-dados-route-finder.xlsx foi lido com sucesso");
+            info.inserirLog( "","O arquivo planilhas/base-dados-route-finder.xlsx foi lido com sucesso");
         } catch (Exception e) {
             System.out.println(String.format("Não foi possível processar os dados, erro: %s", e.getMessage()));
-            SlackNotifier.enviarMensagem("Não foi possivel processar os dados, erro: %s "+ e.getMessage());
-            error.inserirLog(String.format("Não foi possível processar os dados, erro: %s", e.getMessage()));
+            error.inserirLog("Erro Processamento",String.format("Não foi possível processar os dados, erro: %s", e.getMessage()));
         }
 
 

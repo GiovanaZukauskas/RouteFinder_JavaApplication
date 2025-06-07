@@ -48,7 +48,7 @@ public class LeitorDados {
     public void processar(String bucket, String key) {
         System.out.println("Iniciando processamento do arquivo: " + key);
 
-        info.inserirLog( "Processamento iniciado com sucesso: " + key);
+        info.inserirLog( "", "Processamento iniciado com sucesso: " + key);
 
         try (InputStream inputStream = s3Client.getObject(GetObjectRequest.builder()
                 .bucket(bucket)
@@ -56,8 +56,7 @@ public class LeitorDados {
                 .build())) {
 
             if (key.endsWith(".xls")) {
-                erro.inserirLog("Arquivos .xls não são suportados no modo SAX.");
-                SlackNotifier.enviarMensagem("Arquivos .xls não são suportados no modo SAX");
+                erro.inserirLog("Erro no formato do arquivo" ,"Arquivos .xls não são suportados no modo SAX.");
                 throw new UnsupportedOperationException("Arquivos .xls não são suportados no modo SAX.");
             }
             IOUtils.setByteArrayMaxOverride(1_000_000_000);
@@ -75,19 +74,19 @@ public class LeitorDados {
             Map<String, Integer> passagensCadastradas = new HashMap<>();
             jdbcTemplate.query("SELECT id_passage, name_passage FROM passage", rs -> {
                 passagensCadastradas.put(rs.getString("name_passage").trim().toLowerCase(), rs.getInt("id_passage"));
-                info.inserirLog( "FKs da tabela passage carregadas com sucesso");
+                info.inserirLog( "", "FKs da tabela passage carregadas com sucesso");
             });
 
             Map<String, Integer> direcaoCadastrada = new HashMap<>();
             jdbcTemplate.query("SELECT id_direction, name_direction FROM direction", rs -> {
                 direcaoCadastrada.put(rs.getString("name_direction").trim().toLowerCase(), rs.getInt("id_direction"));
-                info.inserirLog( "FKs da tabela direction carregadas com sucesso");
+                info.inserirLog( "","FKs da tabela direction carregadas com sucesso");
             });
 
             Map<String, Integer> segmentoCadastrado = new HashMap<>();
             jdbcTemplate.query("SELECT id_segment, name_segment FROM segment", rs -> {
                 segmentoCadastrado.put(rs.getString("name_segment").trim().toLowerCase(), rs.getInt("id_segment"));
-                info.inserirLog( "FKs da tabela segment carregadas com sucesso");
+                info.inserirLog( "","FKs da tabela segment carregadas com sucesso");
             });
 
 
@@ -186,10 +185,10 @@ public class LeitorDados {
             }
 
             System.out.println("✔ Leitura da planilha '" + key + "' finalizada.");
-            info.inserirLog( "✔ Leitura da planilha '" + key + "' finalizada.");
+            info.inserirLog( "","✔ Leitura da planilha '" + key + "' finalizada.");
         } catch (Exception e) {
             System.err.println("Erro ao processar a planilha '" + key + "': " + e.getMessage());
-            erro.inserirLog( "Erro ao processar a planilha '" + key + "': " + e.getMessage());
+            erro.inserirLog( "Erro na planilha","Erro ao processar a planilha '" + key + "': " + e.getMessage());
         }
     }
 
@@ -221,10 +220,10 @@ public class LeitorDados {
                 ps.setInt(2, horario.getJamSize());
                 ps.setInt(3, horario.getFkSegment());
             });
-            info.inserirLog( " Foram inseridos " + horarioPicoList.size() + " registros no banco.");
+            info.inserirLog( ""," Foram inseridos " + horarioPicoList.size() + " registros no banco.");
         } catch (Exception e) {
             System.err.println("Erro ao inserir batch: " + e.getMessage());
-            erro.inserirLog( "Erro ao inserir batch: " + e.getMessage());
+            erro.inserirLog( "Erro batch","Erro ao inserir batch: " + e.getMessage());
         }
     }
 }

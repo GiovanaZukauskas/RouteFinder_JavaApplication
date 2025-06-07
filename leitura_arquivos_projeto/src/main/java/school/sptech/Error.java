@@ -2,12 +2,14 @@ package school.sptech;
 
 public class Error extends Log{
 
+        private Alerta alerta;
+
     public Error() {
         super(new Categoria(TipoCategoria.ERROR, "Logs que mapeam eventos de erro!"));
     }
 
     @Override
-    public void inserirLog(String description) {
+    public void inserirLog(String nome, String description) {
         if(description == null){
             return;
         }
@@ -18,9 +20,7 @@ public class Error extends Log{
             );
         } catch (Exception e) {
             System.out.println(String.format("Erro ao inserir o Log %s", e.getMessage()));
-            SlackNotifier.enviarMensagem("Erro ao inserir o Log"+e.getMessage());
-            inserirLog(String.format("Erro ao inserir o Log %s", e.getMessage()));
         }
-
+        alerta.inserirAlerta();
     }
 }

@@ -7,7 +7,7 @@ public class Info extends Log{
     }
 
     @Override
-    public void inserirLog(String description) {
+    public void inserirLog(String nome, String description) {
         if(description == null){
             return;
         }
@@ -18,8 +18,6 @@ public class Info extends Log{
             );
         } catch (Exception e) {
             System.out.println(String.format("Erro ao inserir o Log %s", e.getMessage()));
-            Error erro = new Error();
-            erro.inserirLog(String.format("Erro ao inserir o Log %s", e.getMessage()));
         }
 
     }

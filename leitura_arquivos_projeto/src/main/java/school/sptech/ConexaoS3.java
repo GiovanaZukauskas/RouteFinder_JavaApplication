@@ -38,11 +38,11 @@ public class ConexaoS3 {
                 .build();
     }
 
-    public static List<String> listarArquivos(String bucketName, String prefixo) {
+    public static List<String> listarArquivos(String bucketName, String prefixo) throws Exception {
         System.out.println("Bucket Name: " + bucketName);
         List<String> arquivos = new ArrayList<>();
         if (bucketName == null || bucketName.isEmpty()) {
-            error.inserirLog("O nome do bucket está nulo ou vazio.");
+            error.inserirLog("Erro no bucket", "O nome do bucket está nulo ou vazio.");
             throw new IllegalArgumentException("O nome do bucket não pode ser nulo ou vazio.");
         }
 
@@ -63,14 +63,14 @@ public class ConexaoS3 {
             }
         } catch (Exception e) {
             System.err.println("Erro ao listar os arquivos: " + e.getMessage());
-           error.inserirLog( "Erro ao listar os arquivos" + e.getMessage());
+           error.inserirLog( "Erro na leitura dos dados", "Erro ao listar os arquivos" + e.getMessage());
         }
         return arquivos;
     }
 
-    public static InputStream getArquivo(String bucketName, String key) {
+    public static InputStream getArquivo(String bucketName, String key) throws Exception {
         if (bucketName == null || bucketName.isEmpty()) {
-            error.inserirLog( "O nome do bucket está nulo ou vazio.");
+            error.inserirLog( "Erro no bucket", "O nome do bucket está nulo ou vazio.");
             throw new IllegalArgumentException("O nome do bucket não pode ser nulo ou vazio.");
         }
 
@@ -81,7 +81,7 @@ public class ConexaoS3 {
                     .build());
         } catch (Exception e) {
             System.err.println("Erro ao obter arquivo '" + key + "':" + e.getMessage());
-            error.inserirLog( "Erro ao obter arquivo '" + key + "':" + e.getMessage());
+            error.inserirLog( "Erro no bucket", "Erro ao obter arquivo '" + key + "':" + e.getMessage());
             throw e;
         }
     }
