@@ -6,11 +6,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class SlackNotifier {
-    private static final String WEBHOOK_URL = "COLOQUE O LINK DO PLANNER AQUI";
 
     public static void enviarMensagem(String mensagem) {
         try {
-            URL url = new URL(WEBHOOK_URL);
+            URL url = new URL(ConfigLoader.get("WEBHOOK_URL"));
             HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
             conexao.setRequestMethod("POST");
             conexao.setDoOutput(true);

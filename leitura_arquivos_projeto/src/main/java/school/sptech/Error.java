@@ -21,6 +21,7 @@ public class Error extends Log{
         } catch (Exception e) {
             System.out.println(String.format("Erro ao inserir o Log %s", e.getMessage()));
         }
+        this.alerta = new Alerta(nome, description);
         alerta.inserirAlerta();
     }
 }

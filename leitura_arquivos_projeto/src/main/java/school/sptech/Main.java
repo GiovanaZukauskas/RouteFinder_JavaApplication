@@ -24,7 +24,6 @@ public class Main {
             error.inserirLog("Erro Processamento",String.format("Não foi possível processar os dados, erro: %s", e.getMessage()));
         }
 
-
     }
 }
 
